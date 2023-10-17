@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for;
+import mysql.connector;
 
 app = Flask(__name__);
 
@@ -27,5 +28,15 @@ def inicio():
 @app.route('/homepage')
 def homepage():
     return render_template('homepage.html')
+
+@app.route('/cadastro')
+def cadastro():
+    return render_template('cadastro.html')
+
+def conexao_banco():
+    db = mysql.connector.connect(host=, user=, password=, database=)
+    mycursor = db.cursor()
+    query = "INSERT INTO  clientes (usuario, senha) VALUES (%s, %s)"
+    mycursor.execute(query)
 
 app.run();
