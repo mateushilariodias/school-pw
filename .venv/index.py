@@ -29,14 +29,24 @@ def inicio():
 def homepage():
     return render_template('homepage.html')
 
-@app.route('/cadastro')
-def cadastro():
-    return render_template('cadastro.html')
+@app.route('/cadastro-usuario', methods=['POST'])
+def cadastroUsuario():
+    login_user = request.form['login']
+    password_user = request.form['password_user']
+    return redirect(url_for('cadastro-cliente'))
 
-def conexao_banco():
-    db = mysql.connector.connect(host=, user=, password=, database=)
-    mycursor = db.cursor()
-    query = "INSERT INTO  clientes (usuario, senha) VALUES (%s, %s)"
-    mycursor.execute(query)
+@app.route('/cadastro-usuario')
+def cadastroUser():
+    return render_template('cadastro-usuario.html')
+
+@app.route('/cadastro-cliente')
+def cadastroCliente():
+    return render_template('cadastro-cliente.html')
+
+# def conexao_banco():
+#     db = mysql.connector.connect(host=, user=, password=, database=)
+#     mycursor = db.cursor()
+#     query = "INSERT INTO  clientes (usuario, senha) VALUES (%s, %s)"
+#     mycursor.execute(query)
 
 app.run();
