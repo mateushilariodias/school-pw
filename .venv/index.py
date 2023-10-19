@@ -33,11 +33,15 @@ def homepage():
 def cadastroUsuario():
     login_user = request.form['login']
     password_user = request.form['password_user']
-    return redirect(url_for('cadastro-cliente'))
+    return render_template('cadastro-cliente')
 
 @app.route('/cadastro-usuario')
 def cadastroUser():
     return render_template('cadastro-usuario.html')
+
+# @app.route("/cadastro-usuario/cadastro-cliente")
+# def createCliente():
+#     return render_template('cadastro-cliente.html')
 
 @app.route('/cadastro-cliente')
 def cadastroCliente():
