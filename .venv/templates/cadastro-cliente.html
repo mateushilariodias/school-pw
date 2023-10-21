@@ -14,34 +14,55 @@
     <form action="/cadastro-cliente" method="post">
         <div>
             <label for="nome" class="form-label">Nome:</label>
-            <input type="text" name="nome" id="nome" lass="form-control">
+            <input type="text" name="nome" id="nome" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com o seu nome
+            </div>
         </div>
         <div>
             <label for="cpf" class="form-label">CPF:</label>
-            <input type="text" name="cpf" id="cpf" lass="form-control">
+            <input type="text" name="cpf" id="cpf" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com o seu cpf
+            </div>
         </div>
         <div>
             <label for="email" class="form-label">E-mail:</label>
-            <input type="email" name="email" id="email" lass="form-control">
+            <input type="email" name="email" id="email" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com o seu e-mail
+            </div>
         </div>
         <div>
             <label for="endereco" class="form-label">Endereço:</label>
-            <input type="text" name="endereco" id="endereco" class="form-control">
+            <input type="text" name="endereco" id="endereco" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com o seu endereço
+            </div>
         </div>
         <div>
             <label for="bairro" class="form-label">Bairro:</label>
-            <input type="text" name="bairro" id="bairro" class="form-control">
+            <input type="text" name="bairro" id="bairro" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com o seu bairro
+            </div>
         </div>
         <div>
             <label for="cep" class="form-label">CEP:</label>
-            <input type="text" name="cep" id="cep" class="form-control">
+            <input type="text" name="cep" id="cep" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com o seu cep
+            </div>
         </div>
         <div>
-            <label for="cidade">Cidade:</label>
-            <input type="text" name="cidade" id="cidade" class="form-control">
+            <label for="cidade" class="form-label">Cidade:</label>
+            <input type="text" name="cidade" id="cidade" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com a sua cidade
+            </div>
         </div>
         <div style="text-transform: uppercase;">
-            <input type="button" value="cadastrar cliente">
+            <input type="button" class="btn btn-primary" value="cadastrar cliente" required>
         </div>
     </form>
 
