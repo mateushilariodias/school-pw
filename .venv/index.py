@@ -17,9 +17,9 @@ def loginRender():
 @app.route('/login', methods=['POST'])
 def login():
     login_user = request.form['login']
-    password_user = request.form['password_user']
+    password_user = request.form['senha']
 
-    if login_user == '196' and password_user == '@Ma8':
+    if login_user == 'admin' and password_user == '123':
         return redirect(url_for('homepage'))
     else:
         return redirect(url_for('inicio', titulo="Usuário ou senha inválido"))
@@ -41,18 +41,20 @@ def cadastroUser():
 @app.route('/cadastro-cliente', methods=['POST'])
 def cadastroUsuario():
     login_user = request.form['login']
-    password_user = request.form['password_user']
+    password_user = request.form['senha']
     return render_template('cadastro-cliente.html')
     #return redirect(url_for('cadastro-cliente'))
 
-
+@app.route('/cadastro-cliente')
+def cadastroCliente():
+    return render_template('cadastro-cliente.html')
 
 # @app.route("/cadastro-usuario/cadastro-cliente")
 # def createCliente():
 #     return render_template('cadastro-cliente.html')
 
 @app.route('/cadastro-cliente/insert', methods=['POST'])
-def cadastroCliente():
+def cadastrarCliente():
     nome = request.form['nome']
     cpf = request.form['cpf']
     email = request.form['email']
@@ -68,4 +70,50 @@ def cadastroCliente():
 #     query = "INSERT INTO  clientes (usuario, senha) VALUES (%s, %s)"
 #     mycursor.execute(query)
 
-app.run()
+@app.route('/cadastro_usuario', methods=['POST'])
+def inserir_usuario():
+    login = request.form['login']
+    senha = request.form['senha']
+    
+    db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+    
+    mycursor = db.cursor()
+    
+    query = 'INSERT INTO mateus_TB_user (usuario, senha) VALUES (%s,%s)'
+    values = (login, senha)
+    
+    mycursor.execute(query, values)
+    
+    db.commit()
+    return render_template('cadastro-cliente.html')
+
+@app.route('/cadastro_cliente', methods=['POST'])
+def inserir_cliente():
+    nome = request.form['nome']
+    if 'nome' in request.form:
+        nome = request.form['nome']
+    cpf = request.form['cpf']
+    email = request.form['email']
+    endereco = request.form['endereco']
+    bairro = request.form['bairro']
+    cep = request.form['cep']
+    cidade = request.form['cidade']
+    
+    db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+    
+    mycursor = db.cursor()
+    
+    query = 'INSERT INTO mateus_TB_client (cpf, nome, email, endereco, bairro, cep, cidade) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+    values = (cpf, nome, email, endereco, bairro, cep, cidade)
+
+    mycursor.execute(query, values)
+    db.commit()
+    return "Cliente cadastrado!"
+
+app.run(debug=True)

@@ -11,19 +11,19 @@
 <body>
     <h1>Cadastro</h1>
 
-    <form action="/cadastro-cliente" method="post">
-        <div>
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" name="nome" id="nome" class="form-control" required>
-            <div class="invalid-feedback">
-                Por favor, preencha com o seu nome
-            </div>
-        </div>
+    <form action="/cadastro_cliente" method="post" class="row g-3 needs-validation" novalidate>
         <div>
             <label for="cpf" class="form-label">CPF:</label>
             <input type="text" name="cpf" id="cpf" class="form-control" required>
             <div class="invalid-feedback">
                 Por favor, preencha com o seu cpf
+            </div>
+        </div>
+        <div>
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" name="nome" id="nome" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, preencha com o seu nome
             </div>
         </div>
         <div>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div style="text-transform: uppercase;">
-            <input type="button" class="btn btn-primary" value="cadastrar cliente" required>
+            <input type="submit" class="btn btn-primary" value="cadastrar cliente">
         </div>
     </form>
 
