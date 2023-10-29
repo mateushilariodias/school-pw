@@ -40,7 +40,8 @@ def cadastroUser():
 
 @app.route('/cadastro-cliente', methods=['POST'])
 def cadastroUsuario():
-    login_user = request.form['login']
+    usuario_user = request.form['usuario']
+    email_user = request.form['email']
     password_user = request.form['senha']
     return render_template('cadastro-cliente.html')
     #return redirect(url_for('cadastro-cliente'))
@@ -72,7 +73,8 @@ def cadastrarCliente():
 
 @app.route('/cadastro_usuario', methods=['POST'])
 def inserir_usuario():
-    login = request.form['login']
+    usuario = request.form['usuario']
+    email = request.form['email']
     senha = request.form['senha']
     
     db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
@@ -82,13 +84,27 @@ def inserir_usuario():
     
     mycursor = db.cursor()
     
-    query = 'INSERT INTO mateus_TB_user (usuario, senha) VALUES (%s,%s)'
-    values = (login, senha)
+    query = 'INSERT INTO mateus_TB_user (usuario, email, senha) VALUES (%s,%s,%s)'
+    values = (usuario, email, senha)
     
     mycursor.execute(query, values)
     
     db.commit()
     return render_template('cadastro-cliente.html')
+
+@app.route('/cadastro-usuario')
+def cadastroDeUsuario():
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+    
+        mycursor = db.cursor()
+        query='select usuario, email from mateus_TB_user'
+        mycursor.execute(query)
+        resultado = mycursor.fetchall()
+        
+        return render_template('cadastro-usuario.html', usuarios = resultado)
 
 @app.route('/cadastro_cliente', methods=['POST'])
 def inserir_cliente():
