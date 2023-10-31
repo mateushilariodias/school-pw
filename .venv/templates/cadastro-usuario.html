@@ -32,6 +32,7 @@
         <tr>
             <th>Usuário</th>
             <th>E-mail</th>
+            <th>Excluir</th>
         </tr>
         {% for usuario in usuarios %}
         <tr>
@@ -41,6 +42,9 @@
                 {% else %}
                     Vazio
                 {%endif%}
+            </td>
+            <td>
+                <a href={{url_for("excluirUsuario", usuario=usuario[0])}}>Excluir</a>
             </td>
         </tr>
         {% endfor %}
