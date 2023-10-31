@@ -34,10 +34,6 @@ def homepage():
     return render_template('homepage.html')
 # ao clicar no link na home page renderiza para página cadastro de usuário
 
-@app.route('/cadastro-usuario')
-def cadastroUser():
-    return render_template('cadastro-usuario.html')
-
 @app.route('/cadastro-cliente', methods=['POST'])
 def cadastroUsuario():
     usuario_user = request.form['usuario']
@@ -45,10 +41,6 @@ def cadastroUsuario():
     password_user = request.form['senha']
     return render_template('cadastro-cliente.html')
     #return redirect(url_for('cadastro-cliente'))
-
-@app.route('/cadastro-cliente')
-def cadastroCliente():
-    return render_template('cadastro-cliente.html')
 
 # @app.route("/cadastro-usuario/cadastro-cliente")
 # def createCliente():
@@ -103,7 +95,6 @@ def cadastroDeUsuario():
         query='select usuario, email from mateus_TB_user'
         mycursor.execute(query)
         resultado = mycursor.fetchall()
-        
         return render_template('cadastro-usuario.html', usuarios = resultado)
 
 @app.route('/cadastro_cliente', methods=['POST'])
@@ -131,5 +122,18 @@ def inserir_cliente():
     mycursor.execute(query, values)
     db.commit()
     return "Cliente cadastrado!"
+
+@app.route('/cadastro-cliente')
+def cadastroDeCliente():
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+    
+        mycursor = db.cursor()
+        query='select cpf, nome, email, endereco, bairro, cep, cidade from mateus_TB_client'
+        mycursor.execute(query)
+        resultado = mycursor.fetchall()
+        return render_template('cadastro-cliente.html', cpfs = resultado)
 
 app.run(debug=True)

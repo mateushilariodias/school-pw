@@ -66,6 +66,29 @@
         </div>
     </form>
 
+    <table>
+        <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Endereço</th>
+            <th>Bairro</th>
+            <th>CEP</th>
+            <th>Cidade</th>
+        </tr>
+        {% for cpf in cpfs %}
+        <tr>
+            <td>{{cpf[0]}}</td>
+            <td>{{cpf[1]}}</td>
+            <td>{{cpf[2]}}</td>
+            <td>{{cpf[3]}}</td>
+            <td>{{cpf[4]}}</td>
+            <td>{{cpf[5]}}</td>
+            <td>{{cpf[6]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
 </body>
 
 </html>
