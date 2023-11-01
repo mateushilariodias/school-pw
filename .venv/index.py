@@ -150,4 +150,18 @@ def excluirUsuario(usuario):
         db.commit()
         return redirect(url_for('cadastro-usuario'))
 
+@app.route('/excluir-cliente')
+def excluirCliente(cpf):
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+    
+        mycursor = db.cursor()
+        query="delete from mateus_TB_client where cpf = '" + cpf + "'"
+        print(query)
+        mycursor.execute(query)
+        db.commit()
+        return redirect(url_for('cadastro-cliente'))
+
 app.run(debug=True)

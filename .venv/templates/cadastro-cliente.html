@@ -75,6 +75,7 @@
             <th>Bairro</th>
             <th>CEP</th>
             <th>Cidade</th>
+            <th>Excluir</th>
         </tr>
         {% for cpf in cpfs %}
         <tr>
@@ -85,6 +86,9 @@
             <td>{{cpf[4]}}</td>
             <td>{{cpf[5]}}</td>
             <td>{{cpf[6]}}</td>
+            <td>
+                <a href={{url_for("excluirCliente", usuario=cpf[0])}}>Excluir</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
