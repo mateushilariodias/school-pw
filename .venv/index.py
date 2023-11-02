@@ -136,7 +136,7 @@ def cadastroDeCliente():
         resultado = mycursor.fetchall()
         return render_template('cadastro-cliente.html', cpfs = resultado)
 
-@app.route('/excluir-usuario')
+@app.route('/excluir-usuario/<usuario>')
 def excluirUsuario(usuario):
         db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
                                  user='aluno_fatec',
@@ -150,7 +150,7 @@ def excluirUsuario(usuario):
         db.commit()
         return redirect(url_for('cadastro-usuario'))
 
-@app.route('/excluir-cliente')
+@app.route('/excluir-cliente/<cpf>')
 def excluirCliente(cpf):
         db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
                                  user='aluno_fatec',
