@@ -32,36 +32,6 @@ def inicio():
 @app.route('/homepage')
 def homepage():
     return render_template('homepage.html')
-# ao clicar no link na home page renderiza para página cadastro de usuário
-
-# @app.route('/cadastro-cliente', methods=['POST'])
-# def cadastroUsuario():
-#     usuario_user = request.form['usuario']
-#     email_user = request.form['email']
-#     password_user = request.form['senha']
-#     return render_template('cadastro-cliente.html')
-    #return redirect(url_for('cadastro-cliente'))
-
-# @app.route("/cadastro-usuario/cadastro-cliente")
-# def createCliente():
-#     return render_template('cadastro-cliente.html')
-
-# @app.route('/cadastro-cliente/insert', methods=['POST'])
-# def cadastrarCliente():
-#     nome = request.form['nome']
-#     cpf = request.form['cpf']
-#     email = request.form['email']
-#     endereco = request.form['endereco']
-#     bairro = request.form['bairro']
-#     cep = request.form['cep']
-#     cidade = request.form['cidade']
-#     return render_template('homepage.html')
-
-# def conexao_banco():
-#     db = mysql.connector.connect(host=, user=, password=, database=)
-#     mycursor = db.cursor()
-#     query = "INSERT INTO  clientes (usuario, senha) VALUES (%s, %s)"
-#     mycursor.execute(query)
 
 @app.route('/cadastro_usuario', methods=['POST'])
 def inserir_usuario():
@@ -82,7 +52,7 @@ def inserir_usuario():
     mycursor.execute(query, values)
     
     db.commit()
-    return render_template('cadastro-cliente.html')
+    return redirect(url_for('cadastroDeCliente'))
 
 @app.route('/cadastro-usuario')
 def cadastroDeUsuario():
@@ -100,8 +70,6 @@ def cadastroDeUsuario():
 @app.route('/cadastro_cliente', methods=['POST'])
 def inserir_cliente():
     nome = request.form['nome']
-    if 'nome' in request.form:
-        nome = request.form['nome']
     cpf = request.form['cpf']
     email = request.form['email']
     endereco = request.form['endereco']
@@ -121,7 +89,7 @@ def inserir_cliente():
 
     mycursor.execute(query, values)
     db.commit()
-    return render_template('cadastro-cliente.html')
+    return redirect(url_for('cadastroDeCliente'))
 
 @app.route('/cadastro-cliente')
 def cadastroDeCliente():
@@ -129,12 +97,12 @@ def cadastroDeCliente():
                                  user='aluno_fatec',
                                  password='aluno_fatec',
                                  database='meu_banco')
-    
+        
         mycursor = db.cursor()
-        query='select cpf, nome, email, endereco, bairro, cep, cidade from mateus_TB_client'
+        query='select * from mateus_TB_client'
         mycursor.execute(query)
         resultado = mycursor.fetchall()
-        return render_template('cadastro-cliente.html', cpfs = resultado)
+        return render_template('cadastro-cliente.html', titulo = 'Cadastrar Cliente', cpfs = resultado)          
 
 @app.route('/excluir-usuario/<usuario>')
 def excluirUsuario(usuario):

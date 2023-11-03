@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>Cadastro</h1>
+    <h1>{{titulo}}</h1>
 
     <form action="/cadastro_cliente" method="post" class="row g-3 needs-validation" novalidate>
         <div>
@@ -87,10 +87,10 @@
             <td>{{cpf[5]}}</td>
             <td>{{cpf[6]}}</td>
             <td>
-                <a href={{url_for("excluirCliente", usuario=cpf[0])}}>Excluir</a>
+                <a href={{url_for("excluirCliente", cpf=cpf[0])}}>Excluir</a>
             </td>
         </tr>
-        {% endfor %}
+    {% endfor %}
     </table>
     
 </body>
