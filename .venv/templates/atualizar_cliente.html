@@ -9,93 +9,63 @@
 </head>
 
 <body>
-    <h1>{{titulo}}</h1>
 
-    <form action="/cadastro_cliente" method="post" class="row g-3 needs-validation" novalidate>
+    <form action="/salvar_alteracao_cliente" method="post" class="row g-3 needs-validation" novalidate>
+        {% for cpf in cpfs %}
         <div>
             <label for="cpf" class="form-label">CPF:</label>
-            <input type="text" name="cpf" id="cpf" class="form-control" required>
+            <input type="text" name="cpf" id="cpf" class="form-control" required value={{cpf[0]}}>
             <div class="invalid-feedback">
                 Por favor, preencha com o seu cpf
             </div>
         </div>
         <div>
             <label for="nome" class="form-label">Nome:</label>
-            <input type="text" name="nome" id="nome" class="form-control" required>
+            <input type="text" name="nome" id="nome" class="form-control" required value={{cpf[1]}}>
             <div class="invalid-feedback">
                 Por favor, preencha com o seu nome
             </div>
         </div>
         <div>
             <label for="email" class="form-label">E-mail:</label>
-            <input type="email" name="email" id="email" class="form-control" required>
+            <input type="email" name="email" id="email" class="form-control" required value={{cpf[2]}}>
             <div class="invalid-feedback">
                 Por favor, preencha com o seu e-mail
             </div>
         </div>
         <div>
             <label for="endereco" class="form-label">Endereço:</label>
-            <input type="text" name="endereco" id="endereco" class="form-control" required>
+            <input type="text" name="endereco" id="endereco" class="form-control" required value={{cpf[3]}}>
             <div class="invalid-feedback">
                 Por favor, preencha com o seu endereço
             </div>
         </div>
         <div>
             <label for="bairro" class="form-label">Bairro:</label>
-            <input type="text" name="bairro" id="bairro" class="form-control" required>
+            <input type="text" name="bairro" id="bairro" class="form-control" required value={{cpf[4]}}>
             <div class="invalid-feedback">
                 Por favor, preencha com o seu bairro
             </div>
         </div>
         <div>
             <label for="cep" class="form-label">CEP:</label>
-            <input type="text" name="cep" id="cep" class="form-control" required>
+            <input type="text" name="cep" id="cep" class="form-control" required value={{cpf[5]}}>
             <div class="invalid-feedback">
                 Por favor, preencha com o seu cep
             </div>
         </div>
         <div>
             <label for="cidade" class="form-label">Cidade:</label>
-            <input type="text" name="cidade" id="cidade" class="form-control" required>
+            <input type="text" name="cidade" id="cidade" class="form-control" required value={{cpf[6]}}>
             <div class="invalid-feedback">
                 Por favor, preencha com a sua cidade
             </div>
         </div>
+        {% endfor %}
         <div style="text-transform: uppercase;">
-            <input type="submit" class="btn btn-primary" value="cadastrar cliente">
+            <input type="submit" class="btn btn-primary" value="Atualizar cliente">
         </div>
     </form>
-
-    <table>
-        <tr>
-            <th>CPF</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Endereço</th>
-            <th>Bairro</th>
-            <th>CEP</th>
-            <th>Cidade</th>
-            <th>Excluir</th>
-            <th>Atualizar</th>
-        </tr>
-        {% for cpf in cpfs %}
-        <tr>
-            <td>{{cpf[0]}}</td>
-            <td>{{cpf[1]}}</td>
-            <td>{{cpf[2]}}</td>
-            <td>{{cpf[3]}}</td>
-            <td>{{cpf[4]}}</td>
-            <td>{{cpf[5]}}</td>
-            <td>{{cpf[6]}}</td>
-            <td>
-                <a href={{url_for("excluirCliente", cpf=cpf[0])}}>Excluir</a>
-            </td>
-            <td>
-                <a href={{url_for("atualizarCliente", cpf=cpf[0])}}>Atualizar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
 
 </body>
 

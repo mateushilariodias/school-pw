@@ -113,10 +113,35 @@ def excluirUsuario(usuario):
     
         mycursor = db.cursor()
         query="delete from mateus_TB_user where usuario = '" + usuario + "'"
-        print(query)
         mycursor.execute(query)
         db.commit()
         return redirect(url_for('cadastro-usuario'))
+
+@app.route('/atualizar-usuario/<usuario>')
+def atualizarUsuario(usuario):
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+    
+        mycursor = db.cursor()
+        query="select usuario, email, senha from mateus_TB_user where usuario = '" + usuario + "'"
+        mycursor.execute(query)
+        resultado = mycursor.fetchall()
+        return render_template('atualizar_usuario.html', usuarios = resultado)
+
+@app.route('/salvar_alteracao_usuario/<usuario>', methods=['POST'])
+def salvarAlteracaoUsuario(usuario):
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+        
+        mycursor = db.cursor()
+        query="update usuario, email, senha from mateus_TB_user where usuario = '" + usuario + "'"
+        mycursor.execute(query)
+        resultado = mycursor.fetchall()
+        return render_template('atualizar_usuario.html', usuario = resultado)
 
 @app.route('/excluir-cliente/<cpf>')
 def excluirCliente(cpf):
@@ -127,9 +152,34 @@ def excluirCliente(cpf):
     
         mycursor = db.cursor()
         query="delete from mateus_TB_client where cpf = '" + cpf + "'"
-        print(query)
         mycursor.execute(query)
         db.commit()
         return redirect(url_for('cadastro-cliente'))
 
 app.run(debug=True)
+
+@app.route('/atualizar-cliente/<cpf>')
+def atualizarCliente(cpf):
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+    
+        mycursor = db.cursor()
+        query="select * from mateus_TB_client where cpf = '" + cpf + "'"
+        mycursor.execute(query)
+        resultado = mycursor.fetchall()
+        return render_template('atualizar_cliente.html', cpfs = resultado)
+
+@app.route('/salvar_alteracao_cliente/<cpf>', methods=['POST'])
+def salvarAlteracaoCliente(cpf):
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+                                 user='aluno_fatec',
+                                 password='aluno_fatec',
+                                 database='meu_banco')
+        
+        mycursor = db.cursor()
+        query="update * from mateus_TB_client where cpf = '" + cpf + "'"
+        mycursor.execute(query)
+        resultado = mycursor.fetchall()
+        return render_template('atualizar_cliente.html', cpf = resultado)

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de cliente</title>
+    <title>Cadastro de usuario</title>
 </head>
 
 <body>
@@ -33,18 +33,22 @@
             <th>Usuário</th>
             <th>E-mail</th>
             <th>Excluir</th>
+            <th>Atualizar</th>
         </tr>
         {% for usuario in usuarios %}
         <tr>
             <td>{{usuario[0]}}</td>
             <td>{% if usuario[1] is not none %}
-                    {{usuario[1]}}
+                {{usuario[1]}}
                 {% else %}
-                    Vazio
+                Vazio
                 {%endif%}
             </td>
             <td>
                 <a href={{url_for("excluirUsuario", usuario=usuario[0])}}>Excluir</a>
+            </td>
+            <td>
+                <a href={{url_for("atualizarUsuario", usuario=usuario[0])}}>Atualizar</a>
             </td>
         </tr>
         {% endfor %}
