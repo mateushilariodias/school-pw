@@ -141,7 +141,7 @@ def salvarAlteracaoUsuario(usuario):
         query="update usuario, email, senha from mateus_TB_user where usuario = '" + usuario + "'"
         mycursor.execute(query)
         resultado = mycursor.fetchall()
-        return render_template('atualizar_usuario.html', usuario = resultado)
+        return redirect(url_for('cadastro-usuario'))
 
 @app.route('/excluir-cliente/<cpf>')
 def excluirCliente(cpf):
@@ -156,7 +156,6 @@ def excluirCliente(cpf):
         db.commit()
         return redirect(url_for('cadastro-cliente'))
 
-app.run(debug=True)
 
 @app.route('/atualizar-cliente/<cpf>')
 def atualizarCliente(cpf):
@@ -166,7 +165,7 @@ def atualizarCliente(cpf):
                                  database='meu_banco')
     
         mycursor = db.cursor()
-        query="select * from mateus_TB_client where cpf = '" + cpf + "'"
+        query="select cpf, nome, email, endereco, bairro, cep, cidade from mateus_TB_client where cpf = '" + cpf + "'"
         mycursor.execute(query)
         resultado = mycursor.fetchall()
         return render_template('atualizar_cliente.html', cpfs = resultado)
@@ -182,4 +181,6 @@ def salvarAlteracaoCliente(cpf):
         query="update * from mateus_TB_client where cpf = '" + cpf + "'"
         mycursor.execute(query)
         resultado = mycursor.fetchall()
-        return render_template('atualizar_cliente.html', cpf = resultado)
+        return redirect(url_for('cadastro-cliente'))
+
+app.run(debug=True)
