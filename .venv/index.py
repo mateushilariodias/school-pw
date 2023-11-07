@@ -69,8 +69,8 @@ def cadastroDeUsuario():
 
 @app.route('/cadastro_cliente', methods=['POST'])
 def inserir_cliente():
-    nome = request.form['nome']
     cpf = request.form['cpf']
+    nome = request.form['nome']
     email = request.form['email']
     endereco = request.form['endereco']
     bairro = request.form['bairro']
@@ -130,18 +130,22 @@ def atualizarUsuario(usuario):
         resultado = mycursor.fetchall()
         return render_template('atualizar_usuario.html', usuarios = resultado)
 
-@app.route('/salvar_alteracao_usuario/<usuario>', methods=['POST'])
-def salvarAlteracaoUsuario(usuario):
+@app.route('/salvar_alteracao_usuario', methods=['POST'])
+def salvarAlteracaoUsuario():
+        usuario = request.form['usuario']
+        email = request.form['email']
+        senha = request.form['senha']
+
         db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
                                  user='aluno_fatec',
                                  password='aluno_fatec',
                                  database='meu_banco')
         
         mycursor = db.cursor()
-        query="update usuario, email, senha from mateus_TB_user where usuario = '" + usuario + "'"
+        query="update mateus_TB_user set usuario = '"+ usuario +"', senha = '"+ senha +"', email = '"+ email +"' where usuario = '"+ usuario +"'"
         mycursor.execute(query)
-        resultado = mycursor.fetchall()
-        return redirect(url_for('cadastro-usuario'))
+        db.commit()
+        return redirect(url_for('cadastroDeUsuario'))
 
 @app.route('/excluir-cliente/<cpf>')
 def excluirCliente(cpf):
@@ -170,17 +174,25 @@ def atualizarCliente(cpf):
         resultado = mycursor.fetchall()
         return render_template('atualizar_cliente.html', cpfs = resultado)
 
-@app.route('/salvar_alteracao_cliente/<cpf>', methods=['POST'])
-def salvarAlteracaoCliente(cpf):
+@app.route('/salvar_alteracao_cliente', methods=['POST'])
+def salvarAlteracaoCliente():
+        cpf = request.form['cpf']
+        nome = request.form['nome']
+        email = request.form['email']
+        endereco = request.form['endereco']
+        bairro = request.form['bairro']
+        cep = request.form['cep']
+        cidade = request.form['cidade']
+    
         db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
                                  user='aluno_fatec',
                                  password='aluno_fatec',
                                  database='meu_banco')
         
         mycursor = db.cursor()
-        query="update * from mateus_TB_client where cpf = '" + cpf + "'"
+        query="update mateus_TB_client set cpf = '"+ cpf +"', nome = '"+ nome +"', email = '"+ email +"', endereco = '"+ endereco +"', bairro = '"+ bairro +"', cep = '"+ cep +"', cidade = '"+ cidade +"' where cpf = '" + cpf + "'"
         mycursor.execute(query)
-        resultado = mycursor.fetchall()
-        return redirect(url_for('cadastro-cliente'))
+        db.commit()
+        return redirect(url_for('cadastroDeCliente'))
 
 app.run(debug=True)
