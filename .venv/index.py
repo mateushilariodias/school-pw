@@ -132,22 +132,16 @@ def atualizarUsuario(usuario):
 
 @app.route('/salvar_alteracao_usuario/<usuario>', methods=['POST'])
 def salvarAlteracaoUsuario(usuario):
-    email = request.form['email']
-    senha = request.form['senha']
-    
-    db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
+        db = mysql.connector.connect(host='mysql01.cgkdrobnydiy.us-east-1.rds.amazonaws.com',
                                  user='aluno_fatec',
                                  password='aluno_fatec',
                                  database='meu_banco')
-    
-    mycursor = db.cursor()
-    
-    query = "UPDATE mateus_TB_user SET email=%s, senha=%s WHERE usuario=%s"
-    values = (email, senha, usuario)
-    
-    mycursor.execute(query, values)
-    db.commit()
-    return redirect(url_for('cadastro-usuario'))
+        
+        mycursor = db.cursor()
+        query="update usuario, email, senha from mateus_TB_user where usuario = '" + usuario + "'"
+        mycursor.execute(query)
+        resultado = mycursor.fetchall()
+        return redirect(url_for('cadastro-usuario'))
 
 @app.route('/excluir-cliente/<cpf>')
 def excluirCliente(cpf):
